@@ -8,10 +8,11 @@ class TrainMap {
 
 public:
     TrainMap ();
-
-private:
     unordered_map<string, int> vertices;
     int edges[14][14];
+private:
+    
+    int teste;
 };
 
 
