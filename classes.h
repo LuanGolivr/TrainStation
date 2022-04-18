@@ -16,9 +16,9 @@ public:
 
     bool removeCity( string );
 
-    bool changeDistance(string, string, int);
+    bool changeDistance(string, vector<string>, vector<int> );
 
-    void changeValue(string citySource, string cityTarget, float newValue);
+    void changeValue(string , vector<string>, vector<int> );
 
     string getCities();
 
@@ -216,10 +216,11 @@ bool TrainMap::addCity( string cityName ){
 }
 
 bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist){
-    if (vertices.count(citySource)){
+    if (vertices.count(citySource) && cityTarget.size() && cityDist.size() && cityTarget.size() == cityDist.size()){
 
         for( int i = 0; i < cityTarget.size(); i++){
             edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
+            edges[vertices[cityTarget[i]]][vertices[citySource]] = cityDist[i];
         }
 
         cout << "All the changes were made it" << endl;
@@ -246,8 +247,8 @@ bool TrainMap::removeCity( string cityName ){
 
 }
 
-bool TrainMap::changeDistance( string citySource, string cityTarget, int newDist){
-    if ( vertices.count(citySource) && vertices.count(cityTarget)){
+bool TrainMap::changeDistance( string citySource, vector<string>cityTarget, vector<int>newDist ){
+    if ( vertices.count(citySource) && cityTarget.size() && newDist.size() && cityTarget.size() == newDist.size()){
 
         edges[vertices[citySource]][vertices[cityTarget]] = newDist;
         edges[vertices[cityTarget]][vertices[citySource]] = newDist;
@@ -259,4 +260,29 @@ bool TrainMap::changeDistance( string citySource, string cityTarget, int newDist
     return false;
 }
 
+bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector<int>newValues){
 
+    if( vertices.count(citySource) && citytargets.size() && newValues.size() && citytargets.size() == newValues.size()){
+        for(int i = 0; i < citytargets.size(); i++){
+            try
+            {
+                edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]] = newValues[i];
+                edgesTicketsValues[vertices[citytargets[i]]][vertices[citySource]] = newValues[i];
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }  
+        }
+
+        cout << "All the changes were made it !!" << endl;
+        return true;
+    }
+
+    cout << "It was not possible make the changes" << endl;
+    return false;
+}
+
+string TrainMap::getCities(){
+    
+}
