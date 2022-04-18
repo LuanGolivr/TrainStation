@@ -14,11 +14,13 @@ public:
 
     bool addCityConnections( string, vector<string>, vector<int> );
 
-    void removeCity( string cityName );
+    bool removeCity( string );
 
     void changeDistance(string citySource, string cityTarget , int newDist);
 
     void changeValue(string citySource, string cityTarget, int newValue);
+
+    string getCities();
 
 
 private:
@@ -144,14 +146,35 @@ bool TrainMap::addCity( string cityName ){
 }
 
 bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist){
+    if (vertices.count(citySource)){
 
-    for( int i = 0; i < cityTarget.size(); i++){
-        edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
+        for( int i = 0; i < cityTarget.size(); i++){
+            edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
+        }
+
+        cout << "All the changes were made it" << endl;
+        return true;
     }
 
+    cout << "The source's city does not exist in our sistem" << endl;
+    return false;
 
 }
 
+bool TrainMap::removeCity( string cityName ){
+    if( vertices.count(cityName)){
+
+        vertices.extract(cityName);
+        int graphSize = edges.size();
+        edges.resize(graphSize - 1);
+        cout << "The city " << cityName << " was remove of the TrainStation Map" << endl;
+        return true;
+    }
+
+    cout << "The city " << cityName << " does not exist in the sistem" << endl;
+    return false;
+
+}
 
 
 
