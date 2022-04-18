@@ -10,7 +10,7 @@ class TrainMap {
 public:
     TrainMap ();
 
-    void addCity( string );
+    bool addCity( string );
 
     void addCityConnections( string, vector<string>, vector<int> );
 
@@ -113,9 +113,14 @@ TrainMap::TrainMap(){
     edges[vertices["CityN"]][vertices["CityI"]] = 60;
 }
 
-void TrainMap::addCity( string cityName ){
+bool TrainMap::addCity( string cityName ){
+    if(vertices.count(cityName) > 0){
+        cout << "Cidade já inserida" << endl;
+        return false;
+    }
+    
     try
-    {
+    {   
         int postion = vertices.size();
         vertices.insert({cityName, postion});
 
@@ -131,8 +136,10 @@ void TrainMap::addCity( string cityName ){
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        return false;
     }
     
+    return true;
 
 }
 
@@ -142,7 +149,7 @@ void TrainMap::addCityConnections( string citySource, vector<string>cityTarget, 
         edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
     }
 
-    
+
 }
 
 
