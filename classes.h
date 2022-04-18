@@ -16,7 +16,7 @@ public:
 
     bool removeCity( string );
 
-    void changeDistance(string citySource, string cityTarget , int newDist);
+    bool changeDistance(string, string, int);
 
     void changeValue(string citySource, string cityTarget, int newValue);
 
@@ -26,6 +26,7 @@ public:
 private:
     unordered_map<string, int> vertices;
     vector<vector<int>> edges;
+    vector<vector<int>> edgesTicketsValues;
 
 };
 
@@ -49,7 +50,7 @@ TrainMap::TrainMap(){
 
 
 
-    //Here we're just setting all the edges spaces as 0
+    //Here we're just setting all the edges spaces and ticket's values as 0
     for(int i = 0; i < 14; i++){
         vector<int> v1;
         for ( int j = 0; j < 14; j ++){
@@ -58,6 +59,16 @@ TrainMap::TrainMap(){
 
         edges.push_back(v1);
     }
+
+    for(int j = 0; i < 14; i++){
+        vector<int> value1;
+        for(int k = 0; k < 14; k++){
+            value1.push_back(0);
+        }
+        edgesTicketsValues.push_back(value1);
+    }
+
+    
 
     // Here we're gonna set some standard distancies between the cities
     edges[vertices["CityA"]][vertices["CityL"]] = 75;
@@ -113,6 +124,12 @@ TrainMap::TrainMap(){
     edges[vertices["CityM"]][vertices["CityK"]] = 50;
 
     edges[vertices["CityN"]][vertices["CityI"]] = 60;
+
+
+    //Here we're gonna set up the standard values of the tickets of each city to every single one.
+
+    edgesTicketsValues[vertices["CityA"]][vertices["City"]] = 
+
 }
 
 bool TrainMap::addCity( string cityName ){
@@ -176,6 +193,17 @@ bool TrainMap::removeCity( string cityName ){
 
 }
 
+bool TrainMap::changeDistance( string citySource, string cityTarget, int newDist){
+    if ( vertices.count(citySource) && vertices.count(cityTarget)){
 
+        edges[vertices[citySource]][vertices[cityTarget]] = newDist;
+        edges[vertices[cityTarget]][vertices[citySource]] = newDist;
+
+        cout << "The distance between " << citySource << " and " << cityTarget << " was update successfully !" << endl;
+        return true;
+    }
+
+    return false;
+}
 
 
