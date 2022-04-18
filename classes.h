@@ -18,7 +18,7 @@ public:
 
     bool changeDistance(string, string, int);
 
-    void changeValue(string citySource, string cityTarget, int newValue);
+    void changeValue(string citySource, string cityTarget, float newValue);
 
     string getCities();
 
@@ -60,12 +60,13 @@ TrainMap::TrainMap(){
         edges.push_back(v1);
     }
 
-    for(int j = 0; i < 14; i++){
-        vector<int> value1;
-        for(int k = 0; k < 14; k++){
-            value1.push_back(0);
+    for(int l = 0; l < 14; l++){
+        vector<int> v2;
+        for(int m = 0; m < 14; m++){
+            v2.push_back(0);
         }
-        edgesTicketsValues.push_back(value1);
+
+        edgesTicketsValues.push_back(v2);
     }
 
     
@@ -128,7 +129,59 @@ TrainMap::TrainMap(){
 
     //Here we're gonna set up the standard values of the tickets of each city to every single one.
 
-    edgesTicketsValues[vertices["CityA"]][vertices["City"]] = 
+    edgesTicketsValues[vertices["CityA"]][vertices["CityL"]] = 37;
+    edgesTicketsValues[vertices["CityA"]][vertices["CityH"]] = 30;
+    edgesTicketsValues[vertices["CityA"]][vertices["CityB"]] = 50;
+    edgesTicketsValues[vertices["CityA"]][vertices["CityD"]] = 32;
+    edgesTicketsValues[vertices["CityA"]][vertices["CityC"]] = 40;
+
+    edgesTicketsValues[vertices["CityB"]][vertices["CityA"]] = 50;
+    edgesTicketsValues[vertices["CityB"]][vertices["CityG"]] = 90;
+    edgesTicketsValues[vertices["CityB"]][vertices["CityE"]] = 60;
+    edgesTicketsValues[vertices["CityB"]][vertices["CityF"]] = 60;
+
+    edgesTicketsValues[vertices["CityC"]][vertices["CityA"]] = 40;
+    edgesTicketsValues[vertices["CityC"]][vertices["CityD"]] = 16;
+
+    edgesTicketsValues[vertices["CityD"]][vertices["CityA"]] = 32;
+    edgesTicketsValues[vertices["CityD"]][vertices["CityC"]] = 16;
+    edgesTicketsValues[vertices["CityD"]][vertices["CityH"]] = 62;
+    edgesTicketsValues[vertices["CityD"]][vertices["CityF"]] = 85;
+    edgesTicketsValues[vertices["CityD"]][vertices["CityE"]] = 55;
+
+    edgesTicketsValues[vertices["CityE"]][vertices["CityI"]] = 40;
+    edgesTicketsValues[vertices["CityE"]][vertices["CityB"]] = 60;
+    edgesTicketsValues[vertices["CityE"]][vertices["CityD"]] = 55;
+
+    edgesTicketsValues[vertices["CityF"]][vertices["CityH"]] = 100;
+    edgesTicketsValues[vertices["CityF"]][vertices["CityB"]] = 60;
+    edgesTicketsValues[vertices["CityF"]][vertices["CityD"]] = 85;
+    edgesTicketsValues[vertices["CityF"]][vertices["CityI"]] = 30;
+    edgesTicketsValues[vertices["CityF"]][vertices["CityJ"]] = 65;
+
+    edgesTicketsValues[vertices["CityG"]][vertices["CityB"]] = 90;
+
+    edgesTicketsValues[vertices["CityH"]][vertices["CityA"]] = 30;
+    edgesTicketsValues[vertices["CityH"]][vertices["CityL"]] = 10;
+    edgesTicketsValues[vertices["CityH"]][vertices["CityD"]] = 62;
+    edgesTicketsValues[vertices["CityH"]][vertices["CityF"]] = 100;
+
+    edgesTicketsValues[vertices["CityI"]][vertices["CityK"]] = 35;
+    edgesTicketsValues[vertices["CityI"]][vertices["CityN"]] = 30;
+    edgesTicketsValues[vertices["CityI"]][vertices["CityF"]] = 30;
+    edgesTicketsValues[vertices["CityI"]][vertices["CityE"]] = 40;
+
+    edgesTicketsValues[vertices["CityJ"]][vertices["CityF"]] = 65;
+
+    edgesTicketsValues[vertices["CityK"]][vertices["CityI"]] = 30; 
+    edgesTicketsValues[vertices["CityK"]][vertices["CityM"]] = 25;
+
+    edgesTicketsValues[vertices["CityL"]][vertices["CityA"]] = 32;
+    edgesTicketsValues[vertices["CityL"]][vertices["CityH"]] = 10;
+
+    edgesTicketsValues[vertices["CityM"]][vertices["CityK"]] = 25;
+
+    edgesTicketsValues[vertices["CityN"]][vertices["CityI"]] = 30;
 
 }
 
