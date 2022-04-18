@@ -12,7 +12,7 @@ public:
 
     bool addCity( string );
 
-    void addCityConnections( string, vector<string>, vector<int> );
+    bool addCityConnections( string, vector<string>, vector<int> );
 
     void removeCity( string cityName );
 
@@ -115,7 +115,7 @@ TrainMap::TrainMap(){
 
 bool TrainMap::addCity( string cityName ){
     if(vertices.count(cityName) > 0){
-        cout << "Cidade já inserida" << endl;
+        cout << "The city already exist" << endl;
         return false;
     }
     
@@ -131,7 +131,7 @@ bool TrainMap::addCity( string cityName ){
             }
             edges.push_back(v1);
         }
-        cout << "Cidade inserida com sucesso" << endl;
+        cout << "The city was inserted successfully " << endl;
     }
     catch(const std::exception& e)
     {
@@ -143,7 +143,7 @@ bool TrainMap::addCity( string cityName ){
 
 }
 
-void TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist){
+bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist){
 
     for( int i = 0; i < cityTarget.size(); i++){
         edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
