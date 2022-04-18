@@ -18,13 +18,14 @@ public:
 
     bool changeDistance(string, vector<string>, vector<int> );
 
-    void changeValue(string , vector<string>, vector<int> );
+    bool changeValue(string , vector<string>, vector<int> );
 
-    string getCities();
+    void getCities();
 
 
 private:
     unordered_map<string, int> vertices;
+    unordered_map<int, string> cities;
     vector<vector<int>> edges;
     vector<vector<int>> edgesTicketsValues;
 
@@ -47,6 +48,22 @@ TrainMap::TrainMap(){
     vertices.insert({"CityL",11});
     vertices.insert({"CityM",12});
     vertices.insert({"CityN",13});
+
+    cities.insert({0, "CityA"});
+    cities.insert({1, "CityB"});
+    cities.insert({2, "CityC"});
+    cities.insert({3, "CityD"});
+    cities.insert({4, "CityE"});
+    cities.insert({5, "CityF"});
+    cities.insert({6, "CityG"});
+    cities.insert({7, "CityH"});
+    cities.insert({8, "CityI"});
+    cities.insert({9, "CityJ"});
+    cities.insert({10, "CityK"});
+    cities.insert({11, "CityL"});
+    cities.insert({12, "CityM"});
+    cities.insert({13, "CityN"});
+
 
 
 
@@ -193,8 +210,9 @@ bool TrainMap::addCity( string cityName ){
     
     try
     {   
-        int postion = vertices.size();
-        vertices.insert({cityName, postion});
+        int position = vertices.size();
+        vertices.insert({cityName, position});
+        cities.insert({position, cityName});
 
         for(int i = 0; i < 1; i++){
             vector<int> v1;
@@ -235,9 +253,13 @@ bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, 
 bool TrainMap::removeCity( string cityName ){
     if( vertices.count(cityName)){
 
+        int position = vertices[cityName];
         vertices.extract(cityName);
+        cities.extract(position);
+
         int graphSize = edges.size();
         edges.resize(graphSize - 1);
+
         cout << "The city " << cityName << " was remove of the TrainStation Map" << endl;
         return true;
     }
@@ -247,13 +269,23 @@ bool TrainMap::removeCity( string cityName ){
 
 }
 
-bool TrainMap::changeDistance( string citySource, vector<string>cityTarget, vector<int>newDist ){
+bool TrainMap::changeDistance( string citySource, vector<string> cityTarget, vector<int> newDist ){
     if ( vertices.count(citySource) && cityTarget.size() && newDist.size() && cityTarget.size() == newDist.size()){
+        for(int i = 0; i < cityTarget.size(); i++){
+            try
+            {
+                edges[vertices[citySource]][vertices[cityTarget[i]]] = newDist[i];
+                edges[vertices[cityTarget[i]]][vertices[citySource]] = newDist[i];
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
 
-        edges[vertices[citySource]][vertices[cityTarget]] = newDist;
-        edges[vertices[cityTarget]][vertices[citySource]] = newDist;
+                
+        }
 
-        cout << "The distance between " << citySource << " and " << cityTarget << " was update successfully !" << endl;
+        cout << "All the changes were made it !!" << endl;
         return true;
     }
 
@@ -266,7 +298,7 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
         for(int i = 0; i < citytargets.size(); i++){
             try
             {
-                edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]] = newValues[i];
+                edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] = newValues[i];
                 edgesTicketsValues[vertices[citytargets[i]]][vertices[citySource]] = newValues[i];
             }
             catch(const std::exception& e)
@@ -283,6 +315,10 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
     return false;
 }
 
-string TrainMap::getCities(){
-    
+void TrainMap::getCities(){
+
+    cout << "The list of cities: " << endl;
+    for(int i = 0; i < edges.size(); i++){
+        cout <<"- " << cities[i] << endl;
+    }
 }
