@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
+#include <queue>
 
 using namespace std;
 
@@ -25,12 +27,11 @@ public:
 
     void getPossiblesRoutes( string );
 
-    void getCheaperRoute( string , string);
+    bool getCheaperRoute( string , string);
 
-    void getQuicklerRoute(string, string);
+    bool getQuicklerRoute(string, string);
 
     /* 
-        ver possíveis rotas de uma determinada cidade
         ver qual a rota mais barata pra X cidade
         ver qual a rota mais rapida para X cidade
 
@@ -422,4 +423,72 @@ void TrainMap::getPossiblesRoutes( string citySource ){
     }
 
     
+}
+
+bool TrainMap::getCheaperRoute( string citySource, string cityTarget ){
+    int teste = 0;
+    return true;
+}
+
+bool TrainMap::getQuicklerRoute( string citySource, string cityTarget ){
+
+    if(vertices.count(citySource) && vertices.count(cityTarget)){
+        try
+        {
+            unordered_map<int, int>dist;
+
+            for(int i = 0; i < cities.size(); i++){
+                dist.insert({i,10000});
+            }
+
+            dist[vertices[citySource]] = 0;
+
+            unordered_set<int>visited;
+            queue<int>heapDist;
+            queue<int>heapIndex;
+
+            heapDist.push(0);
+            heapIndex.push(vertices[citySource]);
+            int currentDist;
+            int currentIndex;
+            int target = vertices[cityTarget];
+
+            while(!heapDist.empty()){
+
+                currentDist = heapDist.front();
+                currentIndex = heapIndex.front();
+                heapDist.pop();
+                heapIndex.pop();
+
+                if(currentIndex == target){
+                    cout << "The lowest distance required to reach the " << cityTarget << " coming from " << citySource << " is : " << dist[target] << "km" << endl;
+                    return true;
+                }
+
+                for(int i = 0; i < edges.size(); i++){
+
+                    if(edges[currentIndex][i] > 0 && visited.count(i) <= 0){
+                        heapDist.push( currentDist + edges[currentIndex][i] );
+                        heapIndex.push(i);
+                        dist[i] = min(dist[i], currentDist + edges[currentIndex][i] );
+                    }
+                }
+
+                visited.insert(currentIndex);
+            }
+
+            cout << "There is no way to get to the " << cityTarget << " living from " << citySource << " , try from other city !!" << endl;
+            return false;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            return false;
+        }
+        
+    }
+
+    cout << "The cities " << citySource << ", " << cityTarget << " may do not exist in our system , please try again !!" << endl;
+    return false;
+
 }
