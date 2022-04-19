@@ -403,14 +403,23 @@ void TrainMap::getPossiblesRoutes( string citySource ){
     if(vertices.count(citySource)){
         try
         {
-            
+            int sourcePosition = vertices[citySource];
+            cout << "The possibles destinations from " << citySource << ": " << endl;
+            cout << "\n";
+            for(int i = 0; i < edges.size(); i++){
+                if (edges[sourcePosition][i] > 0){
+                    cout << citySource << " ----> " << cities[i] << " ---- " << edges[sourcePosition][i] << "Km" << " ---- " << "R$" << edgesTicketsValues[sourcePosition][i] << endl;
+                }
+            }
         }
         catch(const std::exception& e)
         {
             std::cerr << e.what() << '\n';
-        }
-        
+        }    
+    }
+    else {
+        cout << "The city " << citySource << " does not exist in our system !!" << endl;
     }
 
-    cout << "The city " << citySource << " does not exist in our system !!" << endl;
+    
 }
