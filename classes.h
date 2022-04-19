@@ -261,22 +261,32 @@ bool TrainMap::removeCity( string cityName ){
                 vertices[cities[ k ]] = vertices[cities[k - 1]];
             }
 
-            for(int i = position; i < cities.size() - 1; i++){
+            for(int i = position; i < cities.size()-1; i++){
                 cities[i] = cities[i + 1];
             }
         }
         
-        vertices.extract(cityName);
-        cities.extract(position);
+        vertices.erase(cityName);
+        int newPosition = cities.size() - 1;
+        cities.erase(newPosition);
 
-        for(int i = position; i < edges.size(); i++){
-            for(int j = 0; j < edges.size() -1; j++){
+        
+        for(int i = position; i < edges.size()-1; i++){
+            for(int j = 0; j < edges.size(); j++){
                 edges[i][j] = edges[i + 1][j];
             }
         }
 
+        for(int i = position; i < edgesTicketsValues.size()-1; i++){
+            for(int j = 0; j < edgesTicketsValues.size(); j++){
+                edgesTicketsValues[i][j] = edges[i + 1][j];
+            }
+        }
+
         int graphSize = edges.size();
+        int ticketsGraphSize = edgesTicketsValues.size();
         edges.resize(graphSize - 1);
+        edgesTicketsValues.resize(ticketsGraphSize - 1);
 
         cout << "The city " << cityName << " was remove of the TrainStation Map" << endl;
         return true;
@@ -292,8 +302,10 @@ bool TrainMap::changeDistance( string citySource, vector<string> cityTarget, vec
         for(int i = 0; i < cityTarget.size(); i++){
             try
             {
+                cout << "A atual distancia entre " << citySource << " e " << cityTarget[i] << " e de: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
                 edges[vertices[citySource]][vertices[cityTarget[i]]] = newDist[i];
                 edges[vertices[cityTarget[i]]][vertices[citySource]] = newDist[i];
+                cout << "A distancia passou a ser: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
             }
             catch(const std::exception& e)
             {
@@ -316,8 +328,10 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
         for(int i = 0; i < citytargets.size(); i++){
             try
             {
+                cout << "O valor anterior entre as cidades " << citySource << " e " << citytargets[i] << " e de: R$" << edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]];
                 edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] = newValues[i];
                 edgesTicketsValues[vertices[citytargets[i]]][vertices[citySource]] = newValues[i];
+                cout << "O novo valor entre essas cidade será de: R$" << edges[vertices[citySource]][vertices[citytargets[i]]] << endl;
             }
             catch(const std::exception& e)
             {
@@ -334,12 +348,10 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
 }
 
 
-
-
 void TrainMap::getCities(){
 
     cout << "The list of cities: " << endl;
-    for(int i = 0; i < edges.size(); i++){
+    for(int i = 0; i < cities.size(); i++){
         cout <<"- " << cities[i] << endl;
     }
 }
