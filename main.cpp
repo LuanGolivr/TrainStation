@@ -7,13 +7,13 @@ using namespace std;
 int main (){
     TrainMap graph;
     //testing the features
-    graph.addCity("CityO");
-    graph.addCity("CityO");
+    
+    vector<string> target = {"CityL"};
+    vector<int> dist = {40};
+    graph.changeDistance("CityA", target, dist);
 
-
-    vector<string> neighboor = {"CityO"};
-    vector<int> neighboorDist = {40};
-    graph.addCityConnections("CityI", neighboor, neighboorDist);
+    dist[0] = 12;
+    graph.changeValue("CityA", target, dist);
     
     return 0;
 };

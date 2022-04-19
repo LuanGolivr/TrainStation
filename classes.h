@@ -11,9 +11,11 @@ public:
 
     bool addCity( string );
 
-    bool addCityConnections( string, vector<string>, vector<int> );
-
     bool removeCity( string );
+
+    bool addCityConnections( string, vector<string>, vector<int>, vector<int> );
+
+    bool removeCityConnections( string, vector<string> );
 
     bool changeDistance(string, vector<string>, vector<int> );
 
@@ -21,6 +23,18 @@ public:
 
     void getCities();
 
+    void getPossiblesRoutes( string );
+
+    void getCheaperRoute( string , string);
+
+    void getQuicklerRoute(string, string);
+
+    /* 
+        ver possíveis rotas de uma determinada cidade
+        ver qual a rota mais barata pra X cidade
+        ver qual a rota mais rapida para X cidade
+
+    */
 
 
 private:
@@ -233,23 +247,6 @@ bool TrainMap::addCity( string cityName ){
 
 }
 
-bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist){
-    if (vertices.count(citySource) && cityTarget.size() && cityDist.size() && cityTarget.size() == cityDist.size()){
-
-        for( int i = 0; i < cityTarget.size(); i++){
-            edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
-            edges[vertices[cityTarget[i]]][vertices[citySource]] = cityDist[i];
-        }
-
-        cout << "All the changes were made it" << endl;
-        return true;
-    }
-
-    cout << "The source's city does not exist in our sistem" << endl;
-    return false;
-
-}
-
 bool TrainMap::removeCity( string cityName ){
     if( vertices.count(cityName)){
 
@@ -295,6 +292,53 @@ bool TrainMap::removeCity( string cityName ){
     cout << "The city " << cityName << " does not exist in our the system" << endl;
     return false;
 
+}
+
+bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist, vector<int>ticketValue){
+    if (vertices.count(citySource) && cityTarget.size() && cityDist.size() && cityTarget.size() == cityDist.size()){
+
+        for( int i = 0; i < cityTarget.size(); i++){
+            edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
+            edges[vertices[cityTarget[i]]][vertices[citySource]] = cityDist[i];
+
+            edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = ticketValue[i];
+            edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = ticketValue[i];
+        }
+
+        cout << "All the changes were made it" << endl;
+        return true;
+    }
+
+    cout << "The source's city does not exist in our sistem" << endl;
+    return false;
+
+}
+
+bool TrainMap::removeCityConnections(string citySource, vector<string>cityTarget){
+    
+    if(vertices.count(citySource)){
+        try
+        {
+            for(int i = 0; i < cityTarget.size(); i++){
+                edges[vertices[citySource]][vertices[cityTarget[i]]] = 0;
+                edges[vertices[cityTarget[i]]][vertices[citySource]] = 0;
+
+                edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = 0;
+                edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = 0;
+            }
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            return false;
+        }
+
+        cout << "The connections between these cities were removed !!" << endl;
+        return true;
+    }
+
+    cout << "The city " << citySource << " does not exist in our system !!" << endl;
+    return false;
 }
 
 bool TrainMap::changeDistance( string citySource, vector<string> cityTarget, vector<int> newDist ){
@@ -347,11 +391,26 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
     return false;
 }
 
-
 void TrainMap::getCities(){
 
     cout << "The list of cities: " << endl;
     for(int i = 0; i < cities.size(); i++){
         cout <<"- " << cities[i] << endl;
     }
+}
+
+void TrainMap::getPossiblesRoutes( string citySource ){
+    if(vertices.count(citySource)){
+        try
+        {
+            
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+    }
+
+    cout << "The city " << citySource << " does not exist in our system !!" << endl;
 }
