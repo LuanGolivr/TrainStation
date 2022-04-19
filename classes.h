@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <map>
 
 using namespace std;
 
@@ -21,6 +20,7 @@ public:
     bool changeValue(string , vector<string>, vector<int> );
 
     void getCities();
+
 
 
 private:
@@ -254,8 +254,26 @@ bool TrainMap::removeCity( string cityName ){
     if( vertices.count(cityName)){
 
         int position = vertices[cityName];
+
+        if(position < vertices.size() - 1 ){
+
+            for(int k = vertices.size()-1; k > position; k--){
+                vertices[cities[ k ]] = vertices[cities[k - 1]];
+            }
+
+            for(int i = position; i < cities.size() - 1; i++){
+                cities[i] = cities[i + 1];
+            }
+        }
+        
         vertices.extract(cityName);
         cities.extract(position);
+
+        for(int i = position; i < edges.size(); i++){
+            for(int j = 0; j < edges.size() -1; j++){
+                edges[i][j] = edges[i + 1][j];
+            }
+        }
 
         int graphSize = edges.size();
         edges.resize(graphSize - 1);
@@ -264,7 +282,7 @@ bool TrainMap::removeCity( string cityName ){
         return true;
     }
 
-    cout << "The city " << cityName << " does not exist in the sistem" << endl;
+    cout << "The city " << cityName << " does not exist in our the system" << endl;
     return false;
 
 }
@@ -314,6 +332,9 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
     cout << "It was not possible make the changes" << endl;
     return false;
 }
+
+
+
 
 void TrainMap::getCities(){
 
