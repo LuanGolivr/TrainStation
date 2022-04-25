@@ -74,8 +74,14 @@ int main (){
                 cout << "\n";
 
                 vector<string>neighboorCities;
+                vector<int>neighboorDist;
+                vector<int>neighboorTickets;
+
                 int nCities;
                 string city;
+                int distValue;
+                int ticketsValues;
+
                 cout << "Insert the number of connections you want add: " << endl;
                 cin >> nCities;
 
@@ -83,26 +89,15 @@ int main (){
                     cout << "Insert the city's name: " << endl;
                     cin >> city;
                     neighboorCities.push_back(city);
-                }
 
-                vector<int>neighboorDist;
-                int distValue;
-                cout << "\n";
-
-                for(int i = 0; i < nCities; i++){
-                    cout << "Insert the distances between " << sourceCity << " and the cities you just added before: " << endl;
+                    cout << "Insert the distance between " << sourceCity << "and " << neighboorCities.back() << " :" << endl;
                     cin >> distValue;
                     neighboorDist.push_back(distValue);
-                }
 
-                vector<int>neighboorTickets;
-                int ticketsValues;
-                cout << "\n";
-
-                for(int i = 0; i < nCities; i++){
-                    cout << "Insert the values of the Tickets from " << sourceCity << " and the cities you just added before: " << endl;
+                    cout << "Insert the value of the ticket from " << sourceCity << " and " << neighboorCities.back() << " :" << endl;
                     cin >> ticketsValues;
                     neighboorTickets.push_back(ticketsValues);
+
                 }
 
                 cout << "\n";
@@ -136,8 +131,11 @@ int main (){
                 cout << "\n";
 
                 vector<string>neighboorCities;
-                int nCities;
+                vector<int>newDist;
+                int dist;
                 string city;
+
+                int nCities;
                 cout << "Insert the number of connections distance you want to change: " << endl;
                 cin >> nCities;
 
@@ -145,13 +143,8 @@ int main (){
                     cout << "Insert the city's name: " << endl;
                     cin >> city;
                     neighboorCities.push_back(city);
-                }
 
-                vector<int>newDist;
-                int dist;
-
-                for(int i = 0; i < nCities; i++){
-                    cout << "insert the new distance: " << endl;
+                    cout << "Insert the new distance between " << sourceCity << " and " << neighboorCities.back() << " :" << endl;
                     cin >> dist;
                     newDist.push_back(dist);
                 }
@@ -166,22 +159,20 @@ int main (){
                 cout << "\n";
 
                 vector<string>neighboorCities;
+                vector<int>newVal;
+
                 int nCities;
-                string city;
                 cout << "Insert the number of ticket's values you want to change: " << endl;
                 cin >> nCities;
-
+                
+                string city;
+                int val;
                 for(int i = 0; i < nCities; i++){
                     cout << "Insert the city's name: " << endl;
                     cin >> city;
                     neighboorCities.push_back(city);
-                }
 
-                vector<int>newVal;
-                int val;
-
-                for(int i = 0; i < nCities; i++){
-                    cout << "insert the new ticket value: " << endl;
+                    cout << "Insert the ticket value between " << sourceCity << " and " << neighboorCities.back() << " :" << endl;
                     cin >> val;
                     newVal.push_back(val);
                 }
