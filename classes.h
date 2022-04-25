@@ -27,6 +27,8 @@ public:
 
     void getPossiblesRoutes( string );
 
+    void getAllConnections();
+
     bool getCheaperRoute( string , string);
 
     bool getQuicklerRoute(string, string);
@@ -417,6 +419,19 @@ void TrainMap::getPossiblesRoutes( string citySource ){
     }
 
     
+}
+
+void TrainMap::getAllConnections(){
+    cout << "All the connections are: " << endl;
+    
+    for(int i = 0; i < edges.size(); i++){
+        for(int j = 0; j < edges.size(); j++){
+            if (edges[i][j] > 0){
+                cout << cities[i] << " ---> " << cities[j] << " ---- " << edges[i][j] << "Km" << " ---- " << "R$" << edgesTicketsValues[i][j] << endl;
+            }
+        }
+        cout << "\n";
+    }
 }
 
 bool TrainMap::getCheaperRoute( string citySource, string cityTarget ){

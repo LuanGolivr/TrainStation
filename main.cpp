@@ -7,8 +7,9 @@ using namespace std;
 int main (){
     TrainMap graph;
     //testing the features
+
     
-    graph.getQuicklerRoute("CityA", "CityM");
+    graph.getAllConnections();
     
     return 0;
 };
