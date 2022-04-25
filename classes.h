@@ -295,18 +295,31 @@ bool TrainMap::addCityConnections( string citySource, vector<string>cityTarget, 
     if (vertices.count(citySource) && cityTarget.size() && cityDist.size() && cityTarget.size() == cityDist.size()){
 
         for( int i = 0; i < cityTarget.size(); i++){
-            edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
-            edges[vertices[cityTarget[i]]][vertices[citySource]] = cityDist[i];
 
-            edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = ticketValue[i];
-            edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = ticketValue[i];
+            if(vertices.count(cityTarget[i]) && citySource != cityTarget[i] && edges[vertices[citySource]][vertices[cityTarget[i]]] == 0){
+
+                edges[vertices[citySource]][vertices[cityTarget[i]]] = cityDist[i];
+                edges[vertices[cityTarget[i]]][vertices[citySource]] = cityDist[i];
+
+                edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = ticketValue[i];
+                edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = ticketValue[i];
+
+                cout << "A new connection between " << citySource << " and " << cityTarget[i] << " was created !!" << endl;
+                cout << "\n";
+            }
+            else {
+                cout << cityTarget[i] << " does not exist in our system or it was not possible make that change !!" << endl;
+                cout << "\n";
+            }
+            
         }
 
-        cout << "All the changes were made it" << endl;
+        
         return true;
     }
 
-    cout << "The source's city does not exist in our sistem" << endl;
+    cout << citySource << " does not exist in our system !!!"<< endl;
+    cout << "\n";
     return false;
 
 }

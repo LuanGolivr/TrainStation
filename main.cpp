@@ -105,6 +105,7 @@ int main (){
                     neighboorTickets.push_back(ticketsValues);
                 }
 
+                cout << "\n";
                 graph.addCityConnections(sourceCity, neighboorCities, neighboorDist, neighboorTickets);
                 
             }
