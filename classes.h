@@ -317,11 +317,22 @@ bool TrainMap::removeCityConnections(string citySource, vector<string>cityTarget
         try
         {
             for(int i = 0; i < cityTarget.size(); i++){
-                edges[vertices[citySource]][vertices[cityTarget[i]]] = 0;
-                edges[vertices[cityTarget[i]]][vertices[citySource]] = 0;
 
-                edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = 0;
-                edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = 0;
+                if(vertices.count(cityTarget[i]) && citySource != cityTarget[i]){
+
+                    edges[vertices[citySource]][vertices[cityTarget[i]]] = 0;
+                    edges[vertices[cityTarget[i]]][vertices[citySource]] = 0;
+
+                    edgesTicketsValues[vertices[citySource]][vertices[cityTarget[i]]] = 0;
+                    edgesTicketsValues[vertices[cityTarget[i]]][vertices[citySource]] = 0;
+
+                    cout << "The connections between " << citySource << " and " << cityTarget[i] << " was removed !!" << endl;
+                    cout << "\n";
+                }
+                else {
+                    cout << cityTarget[i] << " does not exist in our system or it wasn't possible make that change !!!" << endl;
+                    cout << "\n";
+                } 
             }
         }
         catch(const std::exception& e)
@@ -329,12 +340,13 @@ bool TrainMap::removeCityConnections(string citySource, vector<string>cityTarget
             std::cerr << e.what() << '\n';
             return false;
         }
-
-        cout << "The connections between these cities were removed !!" << endl;
+        
         return true;
     }
 
+    cout << "\n";
     cout << "The city " << citySource << " does not exist in our system !!" << endl;
+    cout << "\n";
     return false;
 }
 
@@ -343,22 +355,38 @@ bool TrainMap::changeDistance( string citySource, vector<string> cityTarget, vec
         for(int i = 0; i < cityTarget.size(); i++){
             try
             {
-                cout << "A atual distancia entre " << citySource << " e " << cityTarget[i] << " e de: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
-                edges[vertices[citySource]][vertices[cityTarget[i]]] = newDist[i];
-                edges[vertices[cityTarget[i]]][vertices[citySource]] = newDist[i];
-                cout << "A distancia passou a ser: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
+                if(vertices.count(cityTarget[i]) && citySource != cityTarget[i]){
+
+                    cout << "\n";
+                    cout << "A atual distancia entre " << citySource << " e " << cityTarget[i] << " e de: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
+                    edges[vertices[citySource]][vertices[cityTarget[i]]] = newDist[i];
+                    edges[vertices[cityTarget[i]]][vertices[citySource]] = newDist[i];
+                    cout << "A distancia passou a ser: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
+                    cout << "\n";
+                }
+                else {
+
+                    cout << "\n";
+                    cout << cityTarget[i] << " does not exist em our system or it was not possible make the change !!!" << endl;
+                    cout << "\n";
+                }
+                
             }
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
+                
             }
 
                 
         }
 
         cout << "All the changes were made it !!" << endl;
+        cout << "\n";
         return true;
     }
+
+    cout << citySource << " does not exist in our system !!!" << endl;
 
     return false;
 }
@@ -369,22 +397,32 @@ bool TrainMap::changeValue( string citySource, vector<string>citytargets, vector
         for(int i = 0; i < citytargets.size(); i++){
             try
             {
-                cout << "O valor anterior entre as cidades " << citySource << " e " << citytargets[i] << " e de: R$" << edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]];
-                edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] = newValues[i];
-                edgesTicketsValues[vertices[citytargets[i]]][vertices[citySource]] = newValues[i];
-                cout << "O novo valor entre essas cidade será de: R$" << edges[vertices[citySource]][vertices[citytargets[i]]] << endl;
+
+                if(vertices.count(citytargets[i]) && citySource != citytargets[i]){
+
+                    cout << "The Ticket Value between " << citySource << " and  " << citytargets[i] << " is: R$" << edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] << endl;;
+                    edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] = newValues[i];
+                    edgesTicketsValues[vertices[citytargets[i]]][vertices[citySource]] = newValues[i];
+                    cout << "The new value between the both are: R$" << edgesTicketsValues[vertices[citySource]][vertices[citytargets[i]]] << endl;
+                    cout << "\n";
+                }
+                else {
+                    cout << "The city " << citytargets[i] << " does not exist or it wasn't possible made this change !!!" << endl;
+                    cout << "\n";
+                }
             }
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
+                
             }  
         }
 
-        cout << "All the changes were made it !!" << endl;
         return true;
     }
 
     cout << "It was not possible make the changes" << endl;
+    cout << "\n";
     return false;
 }
 

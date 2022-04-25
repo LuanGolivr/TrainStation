@@ -157,9 +157,46 @@ int main (){
 
                 graph.changeDistance(sourceCity, neighboorCities, newDist);
             }
+            else if( decision == 6){
 
+                string sourceCity;
+                cout << "Insert the name of the city which one you want change its neighbor's tickets values :  " << endl;
+                cin >> sourceCity;
+                cout << "\n";
+
+                vector<string>neighboorCities;
+                int nCities;
+                string city;
+                cout << "Insert the number of ticket's values you want to change: " << endl;
+                cin >> nCities;
+
+                for(int i = 0; i < nCities; i++){
+                    cout << "Insert the city's name: " << endl;
+                    cin >> city;
+                    neighboorCities.push_back(city);
+                }
+
+                vector<int>newVal;
+                int val;
+
+                for(int i = 0; i < nCities; i++){
+                    cout << "insert the new ticket value: " << endl;
+                    cin >> val;
+                    newVal.push_back(val);
+                }
+
+                graph.changeValue(sourceCity, neighboorCities, newVal);
+            }
+            else{
+                cout << "Thanks for coming !!!" << endl;
+                break;
+            }
 
             
+        }
+        else {
+            cout << "thanks for comming !!" << endl;
+            break;
         }
 
     }
