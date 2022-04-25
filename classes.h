@@ -421,7 +421,7 @@ void TrainMap::getPossiblesRoutes( string citySource ){
     
 }
 
-void TrainMap::getAllConnections(){
+void TrainMap::getAllConnections(){ 
     cout << "All the connections are: " << endl;
     
     for(int i = 0; i < edges.size(); i++){
