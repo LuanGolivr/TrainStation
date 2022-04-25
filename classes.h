@@ -31,12 +31,6 @@ public:
 
     bool getQuicklerRoute(string, string);
 
-    /* 
-        ver qual a rota mais barata pra X cidade
-        ver qual a rota mais rapida para X cidade
-
-    */
-
 
 private:
     unordered_map<string, int> vertices;
@@ -426,8 +420,65 @@ void TrainMap::getPossiblesRoutes( string citySource ){
 }
 
 bool TrainMap::getCheaperRoute( string citySource, string cityTarget ){
-    int teste = 0;
-    return true;
+    
+    if(vertices.count(cityTarget) && vertices.count(cityTarget)){
+        try
+        {
+            unordered_map<int, int> value;
+
+            for( int i = 0; i < cities.size(); i++){
+                value.insert({i,10000});
+            }
+
+            value[vertices[citySource]] = 0;
+
+            unordered_set<int> visited;
+            queue<int> heapValue;
+            queue<int> heapIndex;
+
+            heapValue.push(0);
+            heapIndex.push(vertices[citySource]);
+            int currentValue;
+            int currentIndex;
+            int target = vertices[cityTarget];
+
+            while(!heapValue.empty()){
+                
+                currentValue = heapValue.front();
+                currentIndex = heapIndex.front();
+                heapValue.pop();
+                heapIndex.pop();
+
+                if(currentIndex == target){
+                    cout << "The cheaper value required to reach " << cityTarget << " coming from " << citySource << " is : " <<value[target] << "km" << endl;
+                    return true;
+                }
+
+                for(int i = 0; i < edgesTicketsValues.size(); i++){
+
+                    if(edgesTicketsValues[currentIndex][i] > 0 && visited.count(i) <= 0){
+                        heapValue.push( currentValue + edgesTicketsValues[currentIndex][i] );
+                        heapIndex.push(i);
+                        value[i] = min(value[i], currentValue + edgesTicketsValues[currentIndex][i] );
+                    }
+                }
+
+                visited.insert(currentIndex);
+            }
+
+            cout << "There is no way to get to the " << cityTarget << " living from " << citySource << " , try from other city !!" << endl;
+            return false;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            cout << "deu um erro aqui" << endl;
+            return false;
+        }
+    }
+
+    cout << "The cities " << citySource << ", " << cityTarget << " may do not exist in our system , please try again !!" << endl;
+    return false;
 }
 
 bool TrainMap::getQuicklerRoute( string citySource, string cityTarget ){
@@ -492,3 +543,5 @@ bool TrainMap::getQuicklerRoute( string citySource, string cityTarget ){
     return false;
 
 }
+
+
