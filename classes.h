@@ -371,10 +371,10 @@ bool TrainMap::changeDistance( string citySource, vector<string> cityTarget, vec
                 if(vertices.count(cityTarget[i]) && citySource != cityTarget[i]){
 
                     cout << "\n";
-                    cout << "A atual distancia entre " << citySource << " e " << cityTarget[i] << " e de: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
+                    cout << "The previous distance between  " << citySource << " and " << cityTarget[i] << " is: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << "km"<< endl;
                     edges[vertices[citySource]][vertices[cityTarget[i]]] = newDist[i];
                     edges[vertices[cityTarget[i]]][vertices[citySource]] = newDist[i];
-                    cout << "A distancia passou a ser: " << edges[vertices[citySource]][vertices[cityTarget[i]]] << endl;
+                    cout << "Now the distance is : " << edges[vertices[citySource]][vertices[cityTarget[i]]] << "km" << endl;
                     cout << "\n";
                 }
                 else {
