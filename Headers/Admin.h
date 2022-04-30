@@ -31,27 +31,32 @@ public:
 
 protected:
 
-    unordered_map<string, string> adminUsers;
+    vector<string> adminUsers;
+    vector<string> adminPassword;
+
 };
 
 Admin::Admin(){
 
     //Here we're just setting some Standards users
-    adminUsers.insert({"User1", "AdminUserPassword1"});
-    adminUsers.insert({"User2", "AdminUserPassword2"});
-    adminUsers.insert({"User3", "AdminUserPassword3"});
-    adminUsers.insert({"User4", "AdminUserPassword4"});
+    adminUsers.push_back("User1");
+    adminUsers.push_back("User2");
+
+    adminPassword.push_back("Password1");
+    adminPassword.push_back("Password2");
 };
 
 bool Admin::verification( string* username, string* password){
     
-    if(adminUsers.count(*username)){
-        cout << "Successull login !!!" << endl;
-        return true;
-    }else{
-        cout << "Invalid user or password" << endl;
-        return false;
+    for(int i = 0; i < adminPassword.size(); i++){
+        if( adminUsers[i] == *username && adminPassword[i] == *password){
+            cout << "Sucessfull login !!" << endl;
+            return true;
+        }
     }
+
+    cout << "Invalid username or/and password !!" << endl;
+    return false;
 
 }
 
