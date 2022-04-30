@@ -100,7 +100,7 @@ bool Costumer::getCheaperRoute( string citySource, string cityTarget ){
                 heapIndex.pop();
 
                 if(currentIndex == target){
-                    cout << "The cheaper value required to reach " << cityTarget << " coming from " << citySource << " is : " <<value[target] << "km" << endl;
+                    cout << "The cheaper value required to reach " << cityTarget << " coming from " << citySource << " is : R$" <<value[target] << endl;
                     return true;
                 }
 
