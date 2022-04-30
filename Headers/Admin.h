@@ -15,6 +15,8 @@ public:
 
     Admin();
 
+    bool verification( string*, string*);
+
     bool addCity( string );
 
     bool removeCity( string );
@@ -40,6 +42,18 @@ Admin::Admin(){
     adminUsers.insert({"User3", "AdminUserPassword3"});
     adminUsers.insert({"User4", "AdminUserPassword4"});
 };
+
+bool Admin::verification( string* username, string* password){
+    
+    if(adminUsers.count(*username)){
+        cout << "Successull login !!!" << endl;
+        return true;
+    }else{
+        cout << "Invalid user or password" << endl;
+        return false;
+    }
+
+}
 
 bool Admin::addCity( string cityName ){
     if(vertices.count(cityName) > 0){
