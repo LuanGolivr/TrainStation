@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+
 #include "TrainStation.h"
 
 #ifndef ADMIN_H
@@ -21,13 +22,13 @@ public:
 
     bool removeCity( string );
 
-    bool addCityConnections( string, vector<string>, vector<int>, vector<int> );
+    bool addCityConnections( string, vector<string>&, vector<int>&, vector<int>& );
 
-    bool removeCityConnections( string, vector<string> );
+    bool removeCityConnections( string, vector<string>& );
 
-    bool changeDistance(string, vector<string>, vector<int> );
+    bool changeDistance(string, vector<string>&, vector<int>& );
 
-    bool changeValue(string , vector<string>, vector<int> );
+    bool changeValue(string , vector<string>&, vector<int>& );
 
 protected:
 

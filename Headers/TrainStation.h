@@ -14,17 +14,6 @@ class TrainMap {
 public:
     TrainMap ();
 
-    void getCities();
-
-    void getPossiblesRoutes( string );
-
-    void getAllConnections();
-
-    bool getCheaperRoute( string , string);
-
-    bool getQuicklerRoute(string, string);
-
-
 protected:
     unordered_map<string, int> vertices;
     unordered_map<int, string> cities;

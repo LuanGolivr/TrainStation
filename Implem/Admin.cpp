@@ -6,6 +6,7 @@
 #include <queue>
 
 #include "Headers\Admin.h"
+#include "Headers\TrainStation.h"
 
 using namespace std;
 
@@ -96,7 +97,7 @@ bool Admin::removeCity( string cityName ){
 
 }
 
-bool Admin::addCityConnections( string citySource, vector<string>cityTarget, vector<int>cityDist, vector<int>ticketValue){
+bool Admin::addCityConnections( string citySource, vector<string>& cityTarget, vector<int>& cityDist, vector<int>& ticketValue){
     if (vertices.count(citySource) && cityTarget.size() && cityDist.size() && cityTarget.size() == cityDist.size()){
 
         for( int i = 0; i < cityTarget.size(); i++){
@@ -129,7 +130,7 @@ bool Admin::addCityConnections( string citySource, vector<string>cityTarget, vec
 
 }
 
-bool Admin::removeCityConnections(string citySource, vector<string>cityTarget){
+bool Admin::removeCityConnections(string citySource, vector<string>& cityTarget){
     
     if(vertices.count(citySource)){
         try
@@ -168,7 +169,7 @@ bool Admin::removeCityConnections(string citySource, vector<string>cityTarget){
     return false;
 }
 
-bool Admin::changeDistance( string citySource, vector<string> cityTarget, vector<int> newDist ){
+bool Admin::changeDistance( string citySource, vector<string>& cityTarget, vector<int>& newDist ){
     if ( vertices.count(citySource) && cityTarget.size() && newDist.size() && cityTarget.size() == newDist.size()){
         for(int i = 0; i < cityTarget.size(); i++){
             try
@@ -209,7 +210,7 @@ bool Admin::changeDistance( string citySource, vector<string> cityTarget, vector
     return false;
 }
 
-bool Admin::changeValue( string citySource, vector<string>citytargets, vector<int>newValues){
+bool Admin::changeValue( string citySource, vector<string>& citytargets, vector<int>& newValues){
 
     if( vertices.count(citySource) && citytargets.size() && newValues.size() && citytargets.size() == newValues.size()){
         for(int i = 0; i < citytargets.size(); i++){
